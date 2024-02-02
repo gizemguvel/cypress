@@ -29,3 +29,17 @@ Cypress.Commands.add('magentoLogin', (email, password) => {
     cy.get('#pass').type(password)
     cy.get('#send2').click()
 })
+Cypress.Commands.add('magentoArama', (kelime) => {
+    cy.get('#search').type(kelime)
+    cy.get('[title="Search"]').click();
+    cy.get('.base').should('be.visible').and('contain', kelime)
+})
+
+Cypress.Commands.add('orangehrmSessionLogin', (username, password) => {
+    cy.session([username, password], () => {
+        cy.visit('https://opensource-demo.orangehrmlive.com/');
+        cy.get('[name="username"]').type(username)
+        cy.get('[name="password"]').type(password)
+        cy.get('[type="submit"]').click()
+    })
+})
